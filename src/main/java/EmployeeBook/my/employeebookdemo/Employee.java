@@ -34,6 +34,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "{ " + '"' + "firstName" + '"' + ": " + '"' + firstName + '"' + ", " + '"' + "lastName" + '"' + ": " + '"' + lastName + '"' + " }";
+        return "Имя: " + firstName + "\nФамилия: " + lastName;
     }
 }
