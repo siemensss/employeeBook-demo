@@ -2,6 +2,8 @@ package EmployeeBook.my.employeebookdemo.service;
 
 import EmployeeBook.my.employeebookdemo.Employee;
 
+import java.util.List;
+
 public interface EmployeeService {
     Employee addEmployee(String firstName, String lastName);
 
@@ -9,4 +11,5 @@ public interface EmployeeService {
 
     Employee findEmployee(String firstName, String lastName);
 
+    List<Employee> outputAList();
 }
