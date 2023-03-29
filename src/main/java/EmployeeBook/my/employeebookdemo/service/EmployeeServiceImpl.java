@@ -54,7 +54,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> outputAList() {
-        return employees;
+        return new ArrayList<>(employees);
     }
 
 }
