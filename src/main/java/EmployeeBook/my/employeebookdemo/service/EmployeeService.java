@@ -3,6 +3,7 @@ package EmployeeBook.my.employeebookdemo.service;
 import EmployeeBook.my.employeebookdemo.Employee;
 
 import java.util.List;
+import java.util.Map;
 
 public interface EmployeeService {
     Employee addEmployee(String firstName, String lastName);
@@ -11,5 +12,5 @@ public interface EmployeeService {
 
     Employee findEmployee(String firstName, String lastName);
 
-    List<Employee> outputAList();
+    Map<Integer, Employee> outputAMap();
 }

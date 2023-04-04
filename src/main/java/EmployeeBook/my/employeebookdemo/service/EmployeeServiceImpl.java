@@ -6,28 +6,31 @@ import EmployeeBook.my.employeebookdemo.exceptions.EmployeeNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private List<Employee> employees = new ArrayList<>(List.of(
-            new Employee("Igor", "Filatov"),
-            new Employee("Alex", "Kozlov"),
-            new Employee("Max", "Fomin"),
-            new Employee("Ilya", "Shubin"),
-            new Employee("Valya", "Petrov"),
-            new Employee("Sergey", "Vasyukov"),
-            new Employee("Vlad", "Trushin")
+    private Map<Integer, Employee> employees = new HashMap<>(Map.of(
+            0, new Employee("Igor", "Filatov"),
+            1, new Employee("Alex", "Kozlov"),
+            2, new Employee("Max", "Fomin"),
+            3, new Employee("Ilya", "Shubin"),
+            4, new Employee("Valya", "Petrov"),
+            5, new Employee("Sergey", "Vasyukov"),
+            6, new Employee("Vlad", "Trushin")
     ));
 
     @Override
     public Employee addEmployee(String firstName, String lastName) {
         Employee e = new Employee(firstName, lastName);
-        if (employees.contains(e)) {
+        int id = employees.size();
+        if (employees.containsValue(e)) {
             throw new EmployeeAlreadyAddedException("Сотрудник уже имеется в массиве");
         } else {
-            employees.add(e);
+            employees.put(id, e);
         }
         return e;
     }
@@ -35,26 +38,25 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee removeEmployee(String firstName, String lastName) {
         Employee e = new Employee(firstName, lastName);
-        boolean flag = employees.remove(e);
-        if (!flag) {
+        if (!employees.containsValue(e)) {
             throw new EmployeeNotFoundException("Сотрудник не найден");
         }
+        employees.values().remove(e);
         return e;
     }
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
         Employee e = new Employee(firstName, lastName);
-        int index = employees.indexOf(e);
-        if (index == -1) {
+        if (!employees.containsValue(e)) {
             throw new EmployeeNotFoundException("Сотрудник не найден");
         }
-        return employees.get(index);
+        return e;
     }
 
     @Override
-    public List<Employee> outputAList() {
-        return new ArrayList<>(employees);
+    public Map<Integer, Employee> outputAMap() {
+        return new HashMap<>(employees);
     }
 
 }

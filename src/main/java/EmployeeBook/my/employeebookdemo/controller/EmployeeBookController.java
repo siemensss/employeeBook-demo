@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/employee")
 @RestController
@@ -39,7 +40,7 @@ public class EmployeeBookController {
     }
 
     @GetMapping(path = "/list")
-    public List<Employee> outputAList() {
-        return employeeService.outputAList();
+    public Map<Integer, Employee> outputAMap() {
+        return employeeService.outputAMap();
     }
 }
