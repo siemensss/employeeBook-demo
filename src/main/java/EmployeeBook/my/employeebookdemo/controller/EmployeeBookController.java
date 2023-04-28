@@ -21,22 +21,28 @@ public class EmployeeBookController {
 
     @GetMapping(path = "/add")
     public Employee addEmployee(@RequestParam(value = "firstName", required = false) String firstName,
-                                @RequestParam(value = "lastName", required = false) String lastName) {
+                                @RequestParam(value = "lastName", required = false) String lastName,
+                                @RequestParam(value = "salary", required = false) double salary,
+                                @RequestParam(value = "department", required = false) int department) {
 
-        return employeeService.addEmployee(firstName, lastName);
+        return employeeService.addEmployee(firstName, lastName, salary, department);
     }
 
     @GetMapping(path = "/remove")
     public Employee removeEmployee(@RequestParam(value = "firstName", required = false) String firstName,
-                                   @RequestParam(value = "lastName", required = false) String lastName) {
+                                   @RequestParam(value = "lastName", required = false) String lastName,
+                                   @RequestParam(value = "salary", required = false) double salary,
+                                   @RequestParam(value = "department", required = false) int department) {
 
-        return employeeService.removeEmployee(firstName, lastName);
+        return employeeService.removeEmployee(firstName, lastName, salary, department);
     }
 
     @GetMapping(path = "/find")
     public Employee findEmployee(@RequestParam(value = "firstName", required = false) String firstName,
-                                 @RequestParam(value = "lastName", required = false) String lastName) {
-        return employeeService.findEmployee(firstName, lastName);
+                                 @RequestParam(value = "lastName", required = false) String lastName,
+                                 @RequestParam(value = "salary", required = false) double salary,
+                                 @RequestParam(value = "department", required = false) int department) {
+        return employeeService.findEmployee(firstName, lastName, salary, department);
     }
 
     @GetMapping(path = "/list")
