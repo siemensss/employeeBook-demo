@@ -3,7 +3,11 @@ package EmployeeBook.my.employeebookdemo.service;
 import EmployeeBook.my.employeebookdemo.Employee;
 import EmployeeBook.my.employeebookdemo.exceptions.EmployeeAlreadyAddedException;
 import EmployeeBook.my.employeebookdemo.exceptions.EmployeeNotFoundException;
+import EmployeeBook.my.employeebookdemo.exceptions.IncorrectFirstNameException;
+import EmployeeBook.my.employeebookdemo.exceptions.IncorrectLastNameException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +27,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(String firstName, String lastName, double salary, int department) {
+        if(!StringUtils.isAlpha(firstName)){
+            throw new IncorrectFirstNameException();
+        }
+        firstName = StringUtils.capitalize(firstName.toLowerCase());
+        String[] lastNames = lastName.split("-");
+        for (int i = 0; i < lastNames.length; i++) {
+            if(!StringUtils.isAlpha(lastNames[i])){
+                throw new IncorrectLastNameException();
+            }
+            lastNames[i] = StringUtils.capitalize(lastNames[i].toLowerCase());
+        }
+        lastName = String.join("-", lastNames);
         Employee e = new Employee(firstName, lastName, salary, department);
         int id = employees.size();
         if (employees.containsValue(e)) {
