@@ -12,5 +12,5 @@ public interface EmployeeService {
 
     Employee findEmployee(String firstName, String lastName, double salary, int department);
 
-    Map<Integer, Employee> outputAMap();
+    List<Employee> outputAList();
 }

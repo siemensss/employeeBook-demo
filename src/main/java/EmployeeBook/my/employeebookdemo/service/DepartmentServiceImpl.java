@@ -1,6 +1,7 @@
 package EmployeeBook.my.employeebookdemo.service;
 
 import EmployeeBook.my.employeebookdemo.Employee;
+import EmployeeBook.my.employeebookdemo.exceptions.DepartmentNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -9,39 +10,48 @@ import java.util.stream.Collectors;
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
-    private final EmployeeServiceImpl employeeServiceImpl;
-
-
-    public DepartmentServiceImpl(EmployeeServiceImpl employeeServiceImpl) {
-        this.employeeServiceImpl = employeeServiceImpl;
+    private final EmployeeServiceImpl employeeService;
+    public DepartmentServiceImpl(EmployeeServiceImpl employeeService) {
+        this.employeeService = employeeService;
     }
 
     @Override
-    public Employee getEmployeeWithMinSalaryInSpecificDepartment(int department) {
-        return employeeServiceImpl.employees.values().stream()
+    public double minSalaryInSpecificDepartment(int department) {
+        return employeeService.employees.values().stream()
                 .filter(e -> e.getDepartment() == department)
-                .min(Comparator.comparingDouble(e -> e.getSalary()))
-                .orElseThrow(() -> new RuntimeException("Не найдено сотрудников в отделе"));
+                .mapToDouble(Employee::getSalary)
+                .min()
+                .orElseThrow(DepartmentNotFoundException::new);
+    }
+    @Override
+    public double maxSalaryInSpecificDepartment(int department) {
+        return employeeService.employees.values().stream()
+                .filter(e -> e.getDepartment() == department)
+                .mapToDouble(Employee::getSalary)
+                .max()
+                .orElseThrow(DepartmentNotFoundException::new);
+    }
+    @Override
+    public double sumSalaryInSpecificDepartment(int department) {
+        return employeeService.employees.values().stream()
+                .filter(e -> e.getDepartment() == department)
+                .mapToDouble(Employee::getSalary)
+                .sum();
     }
 
-    @Override
-    public Employee getEmployeeWithMaxSalaryInSpecificDepartment(int department) {
-        return employeeServiceImpl.employees.values().stream()
-                .filter(e -> e.getDepartment() == department)
-                .max(Comparator.comparingDouble(e -> e.getSalary()))
-                .orElseThrow(() -> new RuntimeException("Не найдено сотрудников в отделе"));
-    }
 
     @Override
     public List<Employee> outputAllEmployeesInSpecificDepartment(int department) {
-        return employeeServiceImpl.employees.values().stream()
+        return employeeService.employees.values().stream()
                 .filter(e -> e.getDepartment() == department)
                 .collect(Collectors.toList());
     }
     @Override
     public Map<Integer, List<Employee>> outputAllEmployeesByDepartment() {
-        return employeeServiceImpl.employees.values().stream()
+        return employeeService.employees.values().stream()
                 .collect(Collectors.groupingBy(e -> e.getDepartment()));
     }
+
+
 }
 

@@ -46,7 +46,7 @@ public class EmployeeBookController {
     }
 
     @GetMapping(path = "/list")
-    public Map<Integer, Employee> outputAMap() {
-        return employeeService.outputAMap();
+    public List<Employee> outputAList() {
+        return employeeService.outputAList();
     }
 }

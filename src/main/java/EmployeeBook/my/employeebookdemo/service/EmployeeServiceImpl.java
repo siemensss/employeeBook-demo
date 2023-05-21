@@ -9,17 +9,19 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-     Map<Integer, Employee> employees = new HashMap<>(Map.of(
+    Map<Integer, Employee> employees = new HashMap<>(Map.of(
             0, new Employee("Igor", "Filatov", 30000, 1),
             1, new Employee("Alex", "Kozlov", 40000, 1),
             2, new Employee("Max", "Fomin", 37000, 2),
-            3, new Employee("Ilya", "Shubin", 42000, 3),
+            3, new Employee("Ilya", "Shubin", 25000, 1),
             4, new Employee("Valya", "Petrov", 18000, 2),
             5, new Employee("Sergey", "Vasyukov", 27000, 1),
             6, new Employee("Vlad", "Trushin", 55000, 1)
@@ -69,8 +71,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Map<Integer, Employee> outputAMap() {
-        return new HashMap<>(employees);
+    public List<Employee> outputAList() {
+        return new ArrayList<>(employees.values());
     }
 
 }
