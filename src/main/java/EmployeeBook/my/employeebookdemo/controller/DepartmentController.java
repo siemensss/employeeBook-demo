@@ -24,6 +24,7 @@ public class DepartmentController {
     public double sumSalaryInSpecificDepartment(@PathVariable int id) {
         return departmentService.sumSalaryInSpecificDepartment(id);
     }
+
     @GetMapping(path = "/{id}/salary/max")
     public double maxInSpecificDepartment(@PathVariable int id) {
         return departmentService.maxSalaryInSpecificDepartment(id);
